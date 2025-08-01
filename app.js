@@ -4,6 +4,7 @@ if(process.env.NODE_ENV != "production") {
 
 const express= require("express");
 const app= express();
+const PORT = process.env.PORT || 8080
 const mongoose=require("mongoose");
 const path= require("path");
 const methodOverride = require("method-override");
@@ -73,10 +74,9 @@ const sessionOptions = {
         httpOnly: true,
     },
 };
-
-//app.get("/",(req, res)=>{
-    //res.send("Hi, I am root");       //basic api creation
-//});         
+app.get("/",(req, res)=>{
+ res.redirect("/listings");       //basic api creation
+});         
 
 
 
@@ -121,6 +121,7 @@ app.use((err, req, res, next)=> {
     res.status(statusCode).render("error.ejs", {message});
    });                                         //error handling middleware
 
-app.listen(8080,()=>{
-    console.log("server is listening to port 8080");
+app.listen(PORT, ()=>{
+    console.log(`server is listening to port ${PORT}`);
 });
+
